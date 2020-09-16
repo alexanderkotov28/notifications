@@ -10,12 +10,8 @@ class NotificationServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        $this->loadMigrationsFrom(__DIR__.'/migrations');
-        $this->publishes([__DIR__.'/config/notifications.php' => config_path('notifications.php')]);
-        if ($this->app->runningInConsole()) {
-            $this->commands([
-                NotificationCommand::class,
-            ]);
-        }
+        $this->publishes([__DIR__ . '/config/notifications.php' => config_path('notifications.php')]);
+        $this->publishes([realpath(__DIR__ . '/migrations') => $this->app->databasePath() . '/migrations']);
+        $this->commands([NotificationCommand::class]);
     }
 }
