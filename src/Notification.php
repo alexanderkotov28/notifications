@@ -4,9 +4,9 @@
 namespace AlexanderKotov\Notifications;
 
 
-use App\Helpers\Notification\Connectors\ConnectorInterface;
-use App\Helpers\Notification\Connectors\EmailConnector;
-use App\Helpers\Notification\Connectors\TelegramConnector;
+use AlexanderKotov\Notifications\Connectors\ConnectorInterface;
+use AlexanderKotov\Notifications\Connectors\EmailConnector;
+use AlexanderKotov\Notifications\Connectors\TelegramConnector;
 use Illuminate\Support\Facades\Config;
 
 class Notification
