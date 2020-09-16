@@ -17,5 +17,12 @@
     "psr-4": {
       "AlexanderKotov\\Notifications\\": "src/"
     }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "AlexanderKotov\\Notifications\\NotificationServiceProvider"
+      ]
+    }
   }
 }
