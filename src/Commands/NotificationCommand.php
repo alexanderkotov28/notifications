@@ -2,7 +2,9 @@
 
 namespace AlexanderKotov\Notifications\Commands;
 
+use AlexanderKotov\Notifications\Notification;
 use AlexanderKotov\Notifications\NotificationModel;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 
 class NotificationCommand extends Command
@@ -38,6 +40,19 @@ class NotificationCommand extends Command
      */
     public function handle()
     {
-        NotificationModel::destroy(2);
+        $notifications = NotificationModel::where(
+            [
+                ['execute_at', '<', Carbon::now()],
+                ['executed_at', null]
+            ]
+        )->get();
+
+        foreach ($notifications as $notification){
+//            $b = Notification::{$notification->connector}()->setData($notification->data);
+            $b = Notification::generateConnector($notification->connector, $notification->data);
+            dd($b);
+        }
+
+        dd($notifications);
     }
 }

@@ -25,15 +25,8 @@ class Notification
 
     public static function __callStatic($name, $arguments): ConnectorInterface
     {
-        if (!isset(static::$connectors[$name])) {
-            throw new \Exception('Undefined connector "' . $name . '"');
-        }
-
-        if (!class_exists(static::$connectors[$name])) {
-            throw new \Exception(sprintf('Class "%s"not found for connector "%s"', static::$connectors[$name], $name));
-        }
-
-        $connector = new static::$connectors[$name](...$arguments);
+        $class = self::getConnectorClass($name);
+        $connector = new $class(...$arguments);
         $connector->setConfig(Config::get('notifications.' . $name));
         return $connector;
     }
@@ -42,4 +35,24 @@ class Notification
     {
         static::$connectors[$name] = $connector;
     }
+
+    public static function generateConnector(string $connector, array $data)
+    {
+        $class = self::getConnectorClass($connector);
+        $connector = $class::generateFromData($data);
+    }
+
+    private static function getConnectorClass(string $connector): string
+    {
+        if (!isset(static::$connectors[$connector])) {
+            throw new \Exception('Undefined connector "' . $connector . '"');
+        }
+
+        if (!class_exists(static::$connectors[$connector])) {
+            throw new \Exception(sprintf('Class "%s"not found for connector "%s"', static::$connectors[$connector], $connector));
+        }
+        return static::$connectors[$connector];
+    }
+
+
 }

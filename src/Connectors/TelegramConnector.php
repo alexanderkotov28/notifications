@@ -61,6 +61,11 @@ class TelegramConnector implements ConnectorInterface
         $this->token = $data['token'];
     }
 
+    public static function generateFromData(array $data):TelegramConnector
+    {
+        return new self($data['chats']);
+    }
+
     private function sendMessage($chat_id)
     {
         $curl = curl_init();

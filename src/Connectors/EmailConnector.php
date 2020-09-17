@@ -83,4 +83,9 @@ class EmailConnector implements ConnectorInterface
             'emails' => $this->emails
         ];
     }
+
+    public static function generateFromData(array $data):EmailConnector
+    {
+        return new self($data['emails']);
+    }
 }
