@@ -37,7 +37,7 @@ php artisan migarte
 ```php
 use AlexanderKotov\Notifications\Notification;
 ```
-####Telegram
+#### Telegram
 В метод telegram() передаём id пользователя или массив с несколькими id.
 ```php
    // Отправить прямо сейчас
@@ -46,7 +46,7 @@ use AlexanderKotov\Notifications\Notification;
    Notification::telegram(1340105811)->text('Какой-то текст')->date(Carbon::now()->addMinutes(2));
 ```
 
-####Email
+#### Email
 В метод email() передаём email получателя или массив с несколькими email.  
 subject() - Тема письма  
 text() - Содержимое письма  
@@ -59,7 +59,7 @@ Notification::email('mal@example.com')->subject('Subject')->text('Какой-т�
 Notification::email('mal@example.com')->subject('Subject')->text('Какой-то текст')->fromName('Test')->date(Carbon::now()->addMinutes(2));
 ```
 
-####Push
+#### Push
 В метод push() передаём id пользователя  
 text() - Содержимое пуша  
 ```php
