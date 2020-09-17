@@ -4,7 +4,6 @@
 namespace AlexanderKotov\Notifications\Connectors;
 
 
-use AlexanderKotov\Notifications\NotificationModel;
 use AlexanderKotov\Notifications\Response;
 use Carbon\Carbon;
 
@@ -18,7 +17,7 @@ class EmailConnector extends AbstractConnector implements ConnectorInterface
     private $username;
     private $password;
     private $from_name;
-    
+
     const EXECUTABLE = true;
 
     public function __construct($emails)
@@ -49,7 +48,7 @@ class EmailConnector extends AbstractConnector implements ConnectorInterface
         $transport = (new \Swift_SmtpTransport($this->host, $this->port))->setUsername($this->username)->setPassword($this->password);
         $transport->setEncryption('ssl');
         $mailer = new \Swift_Mailer($transport);
-        $message = (new \Swift_Message($this->subject))->setFrom([$this->username => $this->from_name??$this->username])->setTo($this->emails)->setBody($this->text);
+        $message = (new \Swift_Message($this->subject))->setFrom([$this->username => $this->from_name ?? $this->username])->setTo($this->emails)->setBody($this->text);
 
         try {
             $mailer->send($message);

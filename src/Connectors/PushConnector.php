@@ -29,21 +29,24 @@ class PushConnector extends AbstractConnector implements ConnectorInterface
 
     public function send(): Response
     {
-        if (!$this->model){
-            $this->createModel('email', Carbon::now(), $this->getData());
-        } else{
+        if (!$this->model) {
+            $this->createModel('push', Carbon::now(), $this->getData());
+        } else {
             $this->setExecuted();
         }
+        return new Response('success');
     }
 
     public function date(Carbon $date)
     {
-        $this->createModel('email', $date, $this->getData());
+        $this->createModel('push', $date, $this->getData());
     }
 
     public function getData(): array
     {
-        // TODO: Implement getData() method.
+        return [
+            'text' => $this->text
+        ];
     }
 
     public static function generateFromData(array $data)
