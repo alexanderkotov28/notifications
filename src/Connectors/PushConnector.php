@@ -11,9 +11,11 @@ class PushConnector extends AbstractConnector implements ConnectorInterface
 {
     private $text;
 
-    public function __construct($user_id)
+    public function __construct($user_id = null)
     {
-        $this->setUser($user_id);
+        if (!is_null($user_id)){
+            $this->setUser($user_id);
+        }
     }
 
     public function text(string $text)
@@ -51,6 +53,6 @@ class PushConnector extends AbstractConnector implements ConnectorInterface
 
     public static function generateFromData(array $data)
     {
-        // TODO: Implement generateFromData() method.
+        return new self();
     }
 }

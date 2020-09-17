@@ -49,7 +49,7 @@ class NotificationCommand extends Command
 
         foreach ($notifications as $notification){
             $notification = Notification::connectorFromModel($notification);
-            if ($notification->executable){
+            if ($notification->executable()){
                 $notification->send();
             }
         }
