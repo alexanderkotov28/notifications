@@ -6,6 +6,7 @@ namespace AlexanderKotov\Notifications;
 
 use AlexanderKotov\Notifications\Connectors\ConnectorInterface;
 use AlexanderKotov\Notifications\Connectors\EmailConnector;
+use AlexanderKotov\Notifications\Connectors\PushConnector;
 use AlexanderKotov\Notifications\Connectors\TelegramConnector;
 use Illuminate\Support\Facades\Config;
 
@@ -13,7 +14,8 @@ class Notification
 {
     private static $connectors = [
         'telegram' => TelegramConnector::class,
-        'email' => EmailConnector::class
+        'email' => EmailConnector::class,
+        'push' => PushConnector::class
     ];
 
     /**

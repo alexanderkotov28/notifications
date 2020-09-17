@@ -18,7 +18,8 @@ class CreateNotificationsTable extends Migration
             $table->string('connector');
             $table->json('data');
             $table->boolean('executed');
-            $table->timestamp('execute_at');
+            $table->integer('user_id')->nullable();
+            $table->timestamp('execute_at')->nullable();
             $table->timestamp('executed_at')->nullable();
             $table->timestamps();
         });

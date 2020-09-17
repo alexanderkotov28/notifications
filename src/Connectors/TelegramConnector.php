@@ -14,6 +14,8 @@ class TelegramConnector extends AbstractConnector implements ConnectorInterface
     private $chats = [];
     private $text;
 
+    const EXECUTABLE = true;
+
     public function __construct($chat_id)
     {
         $this->chats = is_array($chat_id) ? $chat_id : [$chat_id];
@@ -40,11 +42,7 @@ class TelegramConnector extends AbstractConnector implements ConnectorInterface
 
     public function date(Carbon $date)
     {
-        NotificationModel::create([
-            'connector' => 'telegram',
-            'execute_at' => $date,
-            'data' => $this->getData()
-        ]);
+        $this->createModel('email', $date, $this->getData());
     }
 
     public function getData():array

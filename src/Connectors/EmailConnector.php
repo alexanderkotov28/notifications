@@ -18,6 +18,8 @@ class EmailConnector extends AbstractConnector implements ConnectorInterface
     private $username;
     private $password;
     private $from_name;
+    
+    const EXECUTABLE = true;
 
     public function __construct($emails)
     {
@@ -70,11 +72,7 @@ class EmailConnector extends AbstractConnector implements ConnectorInterface
 
     public function date(Carbon $date)
     {
-        NotificationModel::create([
-            'connector' => 'email',
-            'execute_at' => $date,
-            'data' => $this->getData()
-        ]);
+        $this->createModel('email', $date, $this->getData());
     }
 
     public function getData(): array
