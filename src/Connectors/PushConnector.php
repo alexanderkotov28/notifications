@@ -10,6 +10,7 @@ use Carbon\Carbon;
 class PushConnector extends AbstractConnector implements ConnectorInterface
 {
     private $text;
+    protected $not_empty = ['user_id', 'text'];
 
     public function __construct($user_id = null)
     {
@@ -31,6 +32,7 @@ class PushConnector extends AbstractConnector implements ConnectorInterface
 
     public function send(): Response
     {
+        $this->validate();
         if (!$this->model) {
             $this->createModel('push', Carbon::now(), $this->getData());
         } else {
@@ -41,6 +43,7 @@ class PushConnector extends AbstractConnector implements ConnectorInterface
 
     public function date(Carbon $date)
     {
+        $this->validate();
         $this->createModel('push', $date, $this->getData());
     }
 

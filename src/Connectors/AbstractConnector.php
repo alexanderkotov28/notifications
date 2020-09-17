@@ -11,6 +11,7 @@ class AbstractConnector
 {
     protected $model;
     protected $user_id;
+    protected $not_empty = [];
 
     const EXECUTABLE = false;
 
@@ -43,6 +44,15 @@ class AbstractConnector
     {
         if ($this->model) {
             $this->model->setExecuted();
+        }
+    }
+
+    protected function validate()
+    {
+        foreach ($this->not_empty as $property) {
+            if (empty($this->{$property})){
+                throw new \Exception(sprintf('Property "%s" is required for "%s"', $property, static::class));
+            }
         }
     }
 }

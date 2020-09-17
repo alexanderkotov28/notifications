@@ -4,6 +4,7 @@ namespace AlexanderKotov\Notifications\Traits;
 
 use AlexanderKotov\Notifications\Notification;
 use AlexanderKotov\Notifications\NotificationModel;
+use Carbon\Carbon;
 
 trait Push
 {
@@ -31,10 +32,10 @@ trait Push
         );
     }
 
-    public function notificationPush(string $text, ?Carbon $date)
+    public function notificationPush(string $text, ?Carbon $date = null)
     {
         $connector = Notification::push($this->id)->text($text);
-        if ($date){
+        if (is_null($date)){
             $connector->send();
         } else{
             $connector->date($date);

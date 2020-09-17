@@ -4,7 +4,6 @@
 namespace AlexanderKotov\Notifications\Connectors;
 
 
-use AlexanderKotov\Notifications\NotificationModel;
 use AlexanderKotov\Notifications\Response;
 use Carbon\Carbon;
 
@@ -13,6 +12,7 @@ class TelegramConnector extends AbstractConnector implements ConnectorInterface
     private $token;
     private $chats = [];
     private $text;
+    protected $not_empty = ['chats', 'text'];
 
     const EXECUTABLE = true;
 
@@ -29,6 +29,7 @@ class TelegramConnector extends AbstractConnector implements ConnectorInterface
 
     public function send(): Response
     {
+        $this->validate();
         foreach ($this->chats as $chat) {
             $res = $this->sendMessage($chat);
             if ($res !== true) {
@@ -42,10 +43,11 @@ class TelegramConnector extends AbstractConnector implements ConnectorInterface
 
     public function date(Carbon $date)
     {
+        $this->validate();
         $this->createModel('email', $date, $this->getData());
     }
 
-    public function getData():array
+    public function getData(): array
     {
         return [
             'text' => $this->text,
@@ -55,13 +57,13 @@ class TelegramConnector extends AbstractConnector implements ConnectorInterface
 
     public function setConfig(?array $data)
     {
-        if (!isset($data['token'])){
+        if (!isset($data['token'])) {
             throw new \Exception('Please fill config data for "telegram" in your config/notifications.php');
         }
         $this->token = $data['token'];
     }
 
-    public static function generateFromData(array $data):TelegramConnector
+    public static function generateFromData(array $data): TelegramConnector
     {
         $connector = new self($data['chats']);
         $connector->text($data['text']);

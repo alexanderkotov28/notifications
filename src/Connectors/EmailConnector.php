@@ -17,6 +17,7 @@ class EmailConnector extends AbstractConnector implements ConnectorInterface
     private $username;
     private $password;
     private $from_name;
+    protected $not_empty = ['emails', 'subject', 'from_name', 'text'];
 
     const EXECUTABLE = true;
 
@@ -45,6 +46,7 @@ class EmailConnector extends AbstractConnector implements ConnectorInterface
 
     public function send(): Response
     {
+        $this->validate();
         $transport = (new \Swift_SmtpTransport($this->host, $this->port))->setUsername($this->username)->setPassword($this->password);
         $transport->setEncryption('ssl');
         $mailer = new \Swift_Mailer($transport);
@@ -71,6 +73,7 @@ class EmailConnector extends AbstractConnector implements ConnectorInterface
 
     public function date(Carbon $date)
     {
+        $this->validate();
         $this->createModel('email', $date, $this->getData());
     }
 
