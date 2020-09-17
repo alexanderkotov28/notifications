@@ -36,10 +36,13 @@ class Notification
         static::$connectors[$name] = $connector;
     }
 
-    public static function generateConnector(string $connector, array $data)
+    public static function connectorFromModel(NotificationModel $model)
     {
-        $class = self::getConnectorClass($connector);
-        $connector = $class::generateFromData($data);
+        $class = self::getConnectorClass($model->connector);
+        $connector = $class::generateFromData($model->data);
+        $connector->setConfig(Config::get('notifications.' . $model->connector));
+        $connector->setModel($model);
+        return $connector;
     }
 
     private static function getConnectorClass(string $connector): string

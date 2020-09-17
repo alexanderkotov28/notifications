@@ -8,7 +8,7 @@ use AlexanderKotov\Notifications\NotificationModel;
 use AlexanderKotov\Notifications\Response;
 use Carbon\Carbon;
 
-class EmailConnector implements ConnectorInterface
+class EmailConnector extends AbstractConnector implements ConnectorInterface
 {
     private $emails = [];
     private $subject;
@@ -54,6 +54,9 @@ class EmailConnector implements ConnectorInterface
         } catch (\Exception $e) {
             return new Response('error', $e->getMessage());
         }
+
+        $this->setExecuted();
+
         return new Response('success');
     }
 
@@ -84,7 +87,7 @@ class EmailConnector implements ConnectorInterface
         ];
     }
 
-    public static function generateFromData(array $data):EmailConnector
+    public static function generateFromData(array $data): EmailConnector
     {
         return new self($data['emails']);
     }

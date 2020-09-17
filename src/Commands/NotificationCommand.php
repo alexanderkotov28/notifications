@@ -48,11 +48,7 @@ class NotificationCommand extends Command
         )->get();
 
         foreach ($notifications as $notification){
-//            $b = Notification::{$notification->connector}()->setData($notification->data);
-            $b = Notification::generateConnector($notification->connector, $notification->data);
-            dd($b);
+            Notification::connectorFromModel($notification)->send();
         }
-
-        dd($notifications);
     }
 }

@@ -8,11 +8,12 @@ use AlexanderKotov\Notifications\NotificationModel;
 use AlexanderKotov\Notifications\Response;
 use Carbon\Carbon;
 
-class TelegramConnector implements ConnectorInterface
+class TelegramConnector extends AbstractConnector implements ConnectorInterface
 {
     private $token;
     private $chats = [];
     private $text;
+    private $model;
 
     public function __construct($chat_id)
     {
@@ -33,6 +34,8 @@ class TelegramConnector implements ConnectorInterface
                 return $res;
             }
         }
+
+        $this->setExecuted();
         return new Response('success');
     }
 
