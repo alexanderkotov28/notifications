@@ -13,7 +13,6 @@ class TelegramConnector extends AbstractConnector implements ConnectorInterface
     private $token;
     private $chats = [];
     private $text;
-    private $model;
 
     public function __construct($chat_id)
     {
@@ -66,7 +65,9 @@ class TelegramConnector extends AbstractConnector implements ConnectorInterface
 
     public static function generateFromData(array $data):TelegramConnector
     {
-        return new self($data['chats']);
+        $connector = new self($data['chats']);
+        $connector->text($data['text']);
+        return $connector;
     }
 
     private function sendMessage($chat_id)

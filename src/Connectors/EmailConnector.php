@@ -47,7 +47,7 @@ class EmailConnector extends AbstractConnector implements ConnectorInterface
         $transport = (new \Swift_SmtpTransport($this->host, $this->port))->setUsername($this->username)->setPassword($this->password);
         $transport->setEncryption('ssl');
         $mailer = new \Swift_Mailer($transport);
-        $message = (new \Swift_Message($this->subject))->setFrom([$this->username => $this->from_name])->setTo($this->emails)->setBody($this->text);
+        $message = (new \Swift_Message($this->subject))->setFrom([$this->username => $this->from_name??$this->username])->setTo($this->emails)->setBody($this->text);
 
         try {
             $mailer->send($message);
@@ -89,6 +89,10 @@ class EmailConnector extends AbstractConnector implements ConnectorInterface
 
     public static function generateFromData(array $data): EmailConnector
     {
-        return new self($data['emails']);
+        $connector = new self($data['emails']);
+        $connector->subject($data['subject']);
+        $connector->fromName($data['from_name']);
+        $connector->text($data['text']);
+        return $connector;
     }
 }
