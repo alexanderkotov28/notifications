@@ -38,6 +38,12 @@ class Notification
         static::$connectors[$name] = $connector;
     }
 
+    /**
+     * Get connecotr object using NotificationModel
+     * @param NotificationModel $model
+     * @return mixed
+     * @throws \Exception
+     */
     public static function connectorFromModel(NotificationModel $model)
     {
         $class = self::getConnectorClass($model->connector);

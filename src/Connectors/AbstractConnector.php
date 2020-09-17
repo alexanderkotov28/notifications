@@ -42,7 +42,7 @@ class AbstractConnector
     protected function setExecuted()
     {
         if ($this->model) {
-            $this->model->update(['executed_at' => Carbon::now()]);
+            $this->model->setExecuted();
         }
     }
 }

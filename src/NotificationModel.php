@@ -17,6 +17,6 @@ class NotificationModel extends Model
 
     public function setExecuted()
     {
-        $this->update(['executed_at', Carbon::now()]);
+        $this->update(['executed_at'=> Carbon::now()]);
     }
 }
