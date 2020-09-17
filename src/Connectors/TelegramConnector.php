@@ -44,7 +44,7 @@ class TelegramConnector extends AbstractConnector implements ConnectorInterface
     public function date(Carbon $date)
     {
         $this->validate();
-        $this->createModel('email', $date, $this->getData());
+        $this->createModel('telegram', $date, $this->getData());
     }
 
     public function getData(): array
