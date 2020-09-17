@@ -17,7 +17,7 @@ class AbstractConnector
 
     public function executable()
     {
-        return self::EXECUTABLE;
+        return static::EXECUTABLE;
     }
 
     public function setModel(NotificationModel $model)
