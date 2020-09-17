@@ -9,7 +9,7 @@ use Carbon\Carbon;
 
 class PushConnector extends AbstractConnector implements ConnectorInterface
 {
-    private $text;
+    protected $text;
     protected $not_empty = ['user_id', 'text'];
 
     public function __construct($user_id = null)

@@ -9,14 +9,14 @@ use Carbon\Carbon;
 
 class EmailConnector extends AbstractConnector implements ConnectorInterface
 {
-    private $emails = [];
-    private $subject;
-    private $text;
+    protected $emails = [];
+    protected $subject;
+    protected $text;
     private $host;
     private $port;
     private $username;
     private $password;
-    private $from_name;
+    protected $from_name;
     protected $not_empty = ['emails', 'subject', 'from_name', 'text'];
 
     const EXECUTABLE = true;

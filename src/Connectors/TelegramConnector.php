@@ -10,8 +10,8 @@ use Carbon\Carbon;
 class TelegramConnector extends AbstractConnector implements ConnectorInterface
 {
     private $token;
-    private $chats = [];
-    private $text;
+    protected $chats = [];
+    protected $text;
     protected $not_empty = ['chats', 'text'];
 
     const EXECUTABLE = true;

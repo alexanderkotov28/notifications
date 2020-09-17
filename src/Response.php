@@ -4,10 +4,10 @@
 namespace AlexanderKotov\Notifications;
 
 
-class Response
+class Response implements \JsonSerializable
 {
-    private $status;
-    private $message;
+    protected $status;
+    protected $message;
 
     public function __construct(string $status, string $message = '')
     {
@@ -29,5 +29,10 @@ class Response
             $data['message'] = $this->message;
         }
         return $data;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return $this->toArray();
     }
 }

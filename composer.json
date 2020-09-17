@@ -11,7 +11,8 @@
   "require": {
     "php": "^7.2",
     "nesbot/carbon": "^2.4",
-    "swiftmailer/swiftmailer": "^6.2"
+    "swiftmailer/swiftmailer": "^6.2",
+    "ext-json": "*"
   },
   "autoload": {
     "psr-4": {
