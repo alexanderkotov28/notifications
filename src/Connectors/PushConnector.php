@@ -9,8 +9,10 @@ use Carbon\Carbon;
 
 class PushConnector extends AbstractConnector implements ConnectorInterface
 {
+	protected $topic;
     protected $text;
-    protected $not_empty = ['user_id', 'text'];
+    protected $type;
+    protected $not_empty = ['user_id', 'text', 'type'];
 
     public function __construct($user_id = null)
     {
@@ -19,11 +21,24 @@ class PushConnector extends AbstractConnector implements ConnectorInterface
         }
     }
 
-    public function text(string $text)
+	public function topic(string $topic)
+	{
+		$this->topic = $topic;
+		return $this;
+	}
+
+	public function text(string $text)
     {
         $this->text = $text;
         return $this;
     }
+
+	public function type(string $type)
+    {
+        $this->type = $type;
+        return $this;
+    }
+
 
     public function setConfig(?array $data)
     {
@@ -50,7 +65,9 @@ class PushConnector extends AbstractConnector implements ConnectorInterface
     public function getData(): array
     {
         return [
-            'text' => $this->text
+            'topic' => $this->topic,
+            'text' => $this->text,
+            'type' => $this->type
         ];
     }
 
